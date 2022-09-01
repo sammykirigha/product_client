@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+     .btn {
+        @apply inline-block px-5 py-3 rounded-lg shadow-lg
+         bg-blue-500 hover:bg-blue-400 hover:-translate-y-0.5
+         focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 
+         focus:ring-opacity-50 active:bg-blue-500 transform transition
+         text-white uppercase tracking-wider font-semibold text-sm sm:text-base;
+    }
+
+   .btn-primary{
+  @apply px-[1.5rem] py-[0.5rem];
+  transition:0.2s;
+  @apply text-white text-[1.6rem] font-[390] leading-[1.7rem] uppercase rounded-sm !important;
+  width:fit-content;
+}
+   
+}
+
+@layer utilities {
+  .custom-breakpoint-container {
+    @apply w-full max-w-[1420px];
+    @apply px-[1.5rem] sm:px-[2.8rem] md:px-[7.9rem] lg:px-[9rem];
+    @apply mx-[auto];
+  }
+  @media screen and (min-width:1580px){
+    .custom-breakpoint-container{
+      @apply px-0;
+    }
+  }
+}
+
