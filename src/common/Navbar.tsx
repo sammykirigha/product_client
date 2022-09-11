@@ -3,9 +3,9 @@ import React from 'react'
 const Navbar: React.FC<{ title: string, children:React.ReactNode }> = (props) => {
 	
   return (
-	  <div className='custom-breakpoint-container flex items-center justify-between flex-col sm:flex-col md:flex-row mt-5 border border-b-gray-500 py-3'>
+	  <div className='custom-breakpoint-container !py-3 flex flex-col items-start sm:items-center md:flex-row md:items-center md:px-2 md:justify-between lg:items-center  border-b border-gray-400 '>
 		  <span className='text-lg text-[2rem] font-bold tracking-wider'>{props.title}</span>
-		  <div className='flex gap-[5rem] flex-col sm:flex-col md:flex-row sm:gap-2 '>
+		  <div className='flex mt-5 md:mt-0 gap-3'>
 			  {props.children}
 		  </div>
 	</div>
