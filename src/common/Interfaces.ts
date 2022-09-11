@@ -27,7 +27,8 @@ export interface ProductProps {
 export interface InputFieldsProps {
 	label?: string;
 	type: string;
-	value?: string;
+	value?: string | number;
+	onChange?: (event:React.ChangeEventHandler<HTMLInputElement>) => void;
 	name?: string;
 	placeholder?: string
 	left?: number

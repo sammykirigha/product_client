@@ -7,10 +7,15 @@ import Navbar from '../../../common/Navbar';
 const ProductAdd: React.FC = () => {
   const navigate = useNavigate()
   const [selectedValue, setSelectedValue] = React.useState("")
+  const [sku, setSku] = useState("")
+
+  const onSkuChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   setSku(event.target.value)
+  }
   const [state, setState] = useState({
     name: "",
     price: "",
-    sku: "",
+    // sku: "",
     weight: "",
     size: "",
     width: 0,
@@ -19,11 +24,26 @@ const ProductAdd: React.FC = () => {
   })
 
 
-  const saveProductHandler = () => {
-      console.log("saving the product");
-      navigate("/")
+  const saveProductHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setState({
+      name: event.target.value,
+      price: event.target.value,
+      // sku: event.target.value,
+      weight: event.target.value,
+      size: event.target.value,
+      length: parseInt(event.target.value),
+      height:parseInt(event.target.value),
+      width: parseInt(event.target.value)
+    })
+    
+      
   }
 
+  const handleSubmit = () => {
+    console.log("saving the state", state);
+    // navigate("/")
+    
+  }
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement> ) => {
     //  console.log(event.target.value);
      setSelectedValue(event.target.value)
@@ -35,13 +55,13 @@ const ProductAdd: React.FC = () => {
   return (
     <div className='custom-breakpoint-container'>
       <Navbar title='Product Add' >
-         <Button text='Save' type="button"  handleClick={saveProductHandler}  />
+         <Button text='Save' type="button"  handleClick={handleSubmit}  />
 			   <Button text='Cancel' type="button" to='/'  />
       </Navbar>
       <div id='product_form' className='flex flex-col'>
-       <InputField label='SKU' type='text' name='SKU' placeholder='Enter SKU' left={5} />
-       <InputField label='Name' type='text' name='name' placeholder='Enter Name' left={7} />
-       <InputField label='Price ($)' type='text' name='price' placeholder='Enter Price'  left={6}/>
+        <InputField label='SKU' type='text' name='SKU' placeholder='Enter SKU' left={5} value={sku } onChange={onSkuChange} />
+       <InputField label='Name' type='text' name='name' placeholder='Enter Name' left={7} value={state.name} />
+       <InputField label='Price ($)' type='text' name='price' placeholder='Enter Price'  left={6} value={state.price} />
       </div>
       <div className='mt-10 flex gap-5' id='productType'>
         <span> Type Switcher</span>
@@ -55,21 +75,21 @@ const ProductAdd: React.FC = () => {
       <div>
         {selectedValue === "Book" ? (
           <div className='flex flex-col '>
-            <InputField label='Weight (KG)' type='number' name='weight' left={6} />
+            <InputField label='Weight (KG)' type='number' name='weight' left={6} value={state.weight} />
             <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide weight in Kg</span>
           </div>
           
         ) : selectedValue === "Furniture" ? (
             <div className='flex flex-col'>
-              <InputField label='Height (CM)' type='number' name='height' left={6} />
-              <InputField label='Width (CM)' type='number' name='width' left={6} />
-              <InputField label='Length (CM)' type='number' name='length' left={6} />
+              <InputField label='Height (CM)' type='number' name='height' left={6} value={state.height} />
+              <InputField label='Width (CM)' type='number' name='width' left={6} value={state.width} />
+              <InputField label='Length (CM)' type='number' name='length' left={6} value={state.length} />
               <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide dimension in HxWxL </span>
             </div>
              
           ) : selectedValue === "DVD" ? (
               <div className='flex flex-col'>
-                <InputField label='Size (MB)' type='number' name='size' left={6} />
+                <InputField label='Size (MB)' type='number' name='size' left={6} value={state.size} />
                 <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide disc space in MB</span>
               </div>
         ): null}
