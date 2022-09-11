@@ -1,13 +1,15 @@
 import React from 'react'
 import { ProductProps } from '../../../common/Interfaces'
 
+
+// TODO: Move prop here
  const ProductCard: React.FC<ProductProps> = ({ product, id, handleChange, isChecked}) => {
 
 
 
   return (
       <div className='flex items-start mt-3 shadow-md bg-white border border-gray-200 px-5 py-5 '>
-        <input className='delete-checkbox mt-2' type="checkbox" onChange={handleChange} checked={isChecked} id={id} value={product.SKU} />
+        <input className='delete-checkbox mt-2' type="checkbox" onChange={(e)=>handleChange(e,product.SKU )} checked={isChecked} id={id} value={product.SKU} />
         <div className='flex items-start px-10 pt-5'>
           <ul className=''>
             <li>

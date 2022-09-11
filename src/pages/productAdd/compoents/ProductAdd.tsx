@@ -10,7 +10,7 @@ const ProductAdd: React.FC = () => {
   const [sku, setSku] = useState("")
 
   const onSkuChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-   setSku(event.target.value)
+   setSku(event.currentTarget.value)
   }
   const [state, setState] = useState({
     name: "",
@@ -40,7 +40,7 @@ const ProductAdd: React.FC = () => {
   }
 
   const handleSubmit = () => {
-    console.log("saving the state", state);
+    console.log("saving the state", sku);
     // navigate("/")
     
   }

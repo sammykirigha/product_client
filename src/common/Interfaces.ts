@@ -20,7 +20,7 @@ export interface ButtonHTMLAttributes {
 export interface ProductProps {
 	product: Product;
 	id?: string;
-	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	handleChange: (event: React.ChangeEvent<HTMLInputElement>, sku:string) => void;
 	isChecked?: boolean;
 }
 
@@ -28,7 +28,7 @@ export interface InputFieldsProps {
 	label?: string;
 	type: string;
 	value?: string | number;
-	onChange?: (event:React.ChangeEventHandler<HTMLInputElement>) => void;
+	onChange?: (event:React.ChangeEvent<HTMLInputElement>) => void;
 	name?: string;
 	placeholder?: string
 	left?: number
