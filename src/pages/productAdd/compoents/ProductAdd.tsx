@@ -8,48 +8,60 @@ const ProductAdd: React.FC = () => {
   const navigate = useNavigate()
   const [selectedValue, setSelectedValue] = React.useState("")
   const [sku, setSku] = useState("")
+  const [name, setName] = useState("")
+  const [price, setPrice] = useState("")
+  const [size, setSize] = useState("")
+  const [weight, setWeight] = useState("")
+  const [width, setWidth] = useState("")
+  const [length, setLength] = useState("")
+  const [height, setHeight] = useState("")
 
   const onSkuChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-   setSku(event.currentTarget.value)
+    setSku(event.currentTarget.value)
+   
   }
-  const [state, setState] = useState({
-    name: "",
-    price: "",
-    // sku: "",
-    weight: "",
-    size: "",
-    width: 0,
-    length: 0,
-    height: 0
-  })
 
-
-  const saveProductHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setState({
-      name: event.target.value,
-      price: event.target.value,
-      // sku: event.target.value,
-      weight: event.target.value,
-      size: event.target.value,
-      length: parseInt(event.target.value),
-      height:parseInt(event.target.value),
-      width: parseInt(event.target.value)
-    })
+    const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.currentTarget.value)
     
-      
   }
+
+    const onPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(event.currentTarget.value)
+   
+  }
+
+    const onSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSize(event.currentTarget.value)
+    
+  }
+    const onWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWidth(event.currentTarget.value)
+    
+  }
+
+    const onWeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWeight(event.currentTarget.value)
+  }
+
+    const onLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLength(event.currentTarget.value)
+  }
+
+    const onHeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setHeight(event.currentTarget.value)
+  }
+
+
 
   const handleSubmit = () => {
-    console.log("saving the state", sku);
+    console.log("saving the state", {name, price, sku, width, weight, height, length, size});
     // navigate("/")
     
   }
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement> ) => {
-    //  console.log(event.target.value);
-     setSelectedValue(event.target.value)
+     setSelectedValue(event.currentTarget.value)
   }
-
-  console.log(selectedValue);
   
   
   return (
@@ -60,8 +72,8 @@ const ProductAdd: React.FC = () => {
       </Navbar>
       <div id='product_form' className='flex flex-col'>
         <InputField label='SKU' type='text' name='SKU' placeholder='Enter SKU' left={5} value={sku } onChange={onSkuChange} />
-       <InputField label='Name' type='text' name='name' placeholder='Enter Name' left={7} value={state.name} />
-       <InputField label='Price ($)' type='text' name='price' placeholder='Enter Price'  left={6} value={state.price} />
+       <InputField label='Name' type='text' name='name' placeholder='Enter Name' left={7} value={name} onChange={onNameChange} />
+       <InputField label='Price ($)' type='text' name='price' placeholder='Enter Price'  left={6} value={price} onChange={onPriceChange} />
       </div>
       <div className='mt-10 flex gap-5' id='productType'>
         <span> Type Switcher</span>
@@ -75,21 +87,21 @@ const ProductAdd: React.FC = () => {
       <div>
         {selectedValue === "Book" ? (
           <div className='flex flex-col '>
-            <InputField label='Weight (KG)' type='number' name='weight' left={6} value={state.weight} />
+            <InputField label='Weight (KG)' type='number' name='weight' left={6} value={weight} onChange={onWeightChange} />
             <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide weight in Kg</span>
           </div>
           
         ) : selectedValue === "Furniture" ? (
             <div className='flex flex-col'>
-              <InputField label='Height (CM)' type='number' name='height' left={6} value={state.height} />
-              <InputField label='Width (CM)' type='number' name='width' left={6} value={state.width} />
-              <InputField label='Length (CM)' type='number' name='length' left={6} value={state.length} />
+              <InputField label='Height (CM)' type='number' name='height' left={6} value={height} onChange={onHeightChange} />
+              <InputField label='Width (CM)' type='number' name='width' left={6} value={width} onChange={onWidthChange} />
+              <InputField label='Length (CM)' type='number' name='length' left={6} value={length} onChange={onLengthChange} />
               <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide dimension in HxWxL </span>
             </div>
              
           ) : selectedValue === "DVD" ? (
               <div className='flex flex-col'>
-                <InputField label='Size (MB)' type='number' name='size' left={6} value={state.size} />
+                <InputField label='Size (MB)' type='number' name='size' left={6} value={size} onChange={onSizeChange} />
                 <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide disc space in MB</span>
               </div>
         ): null}
