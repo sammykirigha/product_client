@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Button from '../../../common/Button'
 import { Product } from '../../../common/Interfaces'
-import Navbar from '../../../common/Navbar'
-import ProductCard from './ProductCard'
+import Navbar from '../../../common/Navbar';
+import ProductCard from './ProductCard';
+import axios from 'axios';
 
 const productList = [
   {
@@ -41,9 +42,6 @@ const productList = [
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([])
-  const [ischeckedState, setIsCheckedState] = useState<boolean[]>(
-    new Array(products.length).fill(true)
-  )
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, sku: string) => {
@@ -59,9 +57,20 @@ const ProductList = () => {
   }
 
 
+  // useEffect(() => {
+  //   setProducts(productList)
+  // }, [])
+
+  const fetchProducts = async () => {    
+    await axios.get('http://localhost/skuapi/index.php/products/list').then(({data}) => {
+      console.log(data);
+      setProducts(data)
+  });
+  }
+
   useEffect(() => {
-    setProducts(productList)
-  }, [])
+    fetchProducts();
+  },[])
 
   return (
     <div className='bg-gray-100 custom-breakpoint-container h-screen'>
