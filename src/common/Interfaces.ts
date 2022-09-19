@@ -8,13 +8,16 @@ export interface ButtonHTMLAttributes {
 }
 
  export interface Product{
-	SKU: string;
+	sku: string;
 	name: string;
 	price: number;
-	size?: string;
-	weight?: string;
-	 dimension?: string
+	size?: number;
+	weight?: number;
+	dimension?: string
 	 checked?: boolean;
+	 height?: number;
+	 width?: number;
+	 length?:number
 }
 
 export interface ProductProps {

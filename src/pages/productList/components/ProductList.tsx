@@ -52,8 +52,18 @@ const ProductList = () => {
     }
   }
 
-  const onMassDelete = () => {
-    setProducts(products.filter(product=> !selectedProducts.includes(product.SKU)))   
+  const onMassDelete = async () => {
+    await Promise.all(selectedProducts.map(async product => {
+      // await axios.delete(`http://localhost/skuapi/index.php/products/delete/${product}`).then(() => {})
+      axios({
+        method: "DELETE",
+        url: `http://localhost/skuapi/index.php/products/delete/${product}`,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(() => "done")
+    }))
+    fetchProducts();
   }
 
 
@@ -61,16 +71,19 @@ const ProductList = () => {
   //   setProducts(productList)
   // }, [])
 
-  const fetchProducts = async () => {    
-    await axios.get('http://localhost/skuapi/index.php/products/list').then(({data}) => {
+  const fetchProducts = async () => {
+
+    await axios.get('http://localhost/skuapi/index.php/products/list').then(({ data }) => {
       console.log(data);
       setProducts(data)
-  });
+    });
   }
 
   useEffect(() => {
     fetchProducts();
-  },[])
+  }, [])
+
+  console.log(selectedProducts);
 
   return (
     <div className='bg-gray-100 custom-breakpoint-container h-screen'>
@@ -81,7 +94,7 @@ const ProductList = () => {
       <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-3 px-3 gap-4'>
         {products?.map((product) => {
           return (
-            <ProductCard product={product} key={product.SKU} handleChange={handleChange} id={product.SKU} />
+            <ProductCard product={product} key={product.sku} handleChange={handleChange} id={product.sku} />
           )
         })}
       </div>

@@ -9,12 +9,12 @@ import { ProductProps } from '../../../common/Interfaces'
 
   return (
       <div className='flex items-start mt-3 shadow-md bg-white border border-gray-200 px-5 py-5 '>
-        <input className='delete-checkbox mt-2' type="checkbox" onChange={(e)=>handleChange(e,product.SKU )} checked={isChecked} id={id} value={product.SKU} />
+        <input className='delete-checkbox mt-2' type="checkbox" onChange={(e)=>handleChange(e,product.sku )} checked={isChecked} id={id} value={product.sku} />
         <div className='flex items-start px-10 pt-5'>
           <ul className=''>
             <li>
               <span className='text-slate-900 text-lg tracking-wider font-semibold'>SKU: </span>
-              <span>{product.SKU}</span>
+              <span>{product.sku}</span>
             </li>
             <li>
               <span className='text-slate-900 text-lg tracking-wider font-semibold'>Name: </span>
@@ -23,23 +23,36 @@ import { ProductProps } from '../../../common/Interfaces'
             <li>
               <span className='text-slate-900 text-lg tracking-wider font-semibold'>Price: $</span>
               <span>{product.price}</span>
-            </li>
-            {product.size && (
+          </li>
+          
+            {product.size === 0? null: (
               <li>
-                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Size: </span>
+                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Size(MB): </span>
                 <span>{product.size}</span>
               </li>
             )}
-            {product.weight && (
+            {product.weight === 0? null: (
               <li>
-                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Weight: </span>
+                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Weight(KG): </span>
                 <span>{product.weight}</span>
               </li>
             )}
-            {product.dimension && (
+            {product.height === 0? null: (
               <li>
-                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Dimension: </span>
-                <span>{product.dimension}</span>
+                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Height(CM): </span>
+                <span>{product.height}</span>
+              </li>
+          )}
+           {product.width === 0? null: (
+              <li>
+                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Width(CM): </span>
+                <span>{product.width}</span>
+              </li>
+            )}
+             {product.width === 0? null: (
+              <li>
+                <span className='text-slate-900 text-lg tracking-wider font-semibold'>Length(CM): </span>
+                <span>{product.width}</span>
               </li>
             )}
 
