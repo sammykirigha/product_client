@@ -38,6 +38,7 @@ const productList = [
   }
 ]
 
+const baseUrl = 'http://161.35.127.79/index.php'
 
 
 const ProductList = () => {
@@ -54,10 +55,9 @@ const ProductList = () => {
 
   const onMassDelete = async () => {
     await Promise.all(selectedProducts.map(async product => {
-      // await axios.delete(`http://localhost/skuapi/index.php/products/delete/${product}`).then(() => {})
       axios({
         method: "DELETE",
-        url: `http://localhost/skuapi/index.php/products/delete/${product}`,
+        url: `${baseUrl}/products/delete/${product}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -73,7 +73,7 @@ const ProductList = () => {
 
   const fetchProducts = async () => {
 
-    await axios.get('http://localhost/skuapi/index.php/products/list').then(({ data }) => {
+    await axios.get(`${baseUrl}/products/list`).then(({ data }) => {
       console.log(data);
       setProducts(data)
     });
