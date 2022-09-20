@@ -10,7 +10,7 @@ const Button:React.FC<ButtonHTMLAttributes> = ({ text, type, id, to = "", handle
       type={type}
       id={id}
       onClick={() => to === "" ? handleClick() : navigate(to)}
-      className={`btn-primary shadow-lg ${text === 'massdelete'? 'bg-red-500 hover:bg-red-600':' bg-[#0076CB] border-0 rounded-none hover:bg-[#0F46A7] '}`}
+      className={`btn-primary shadow-lg ${text === 'mass delete'? 'bg-red-500 hover:bg-red-600':' bg-[#0076CB] border-0 rounded-none hover:bg-[#0F46A7] '}`}
     >
       <span>{text}</span>
     </button>

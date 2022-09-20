@@ -38,7 +38,7 @@ const productList = [
   }
 ]
 
-const baseUrl = 'http://161.35.127.79/index.php'
+const baseUrl = 'http://localhost/skuapi/index.php'
 
 
 const ProductList = () => {
@@ -59,9 +59,9 @@ const ProductList = () => {
         method: "DELETE",
         url: `${baseUrl}/products/delete/${product}`,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         }
-      }).then(() => "done")
+      }).then(() => fetchProducts())
     }))
     fetchProducts();
   }
@@ -89,7 +89,7 @@ const ProductList = () => {
     <div className='bg-gray-100 custom-breakpoint-container h-screen'>
       <Navbar title='Product List' >
         <Button text='add' type="button" to='/add-product' />
-        <Button handleClick={onMassDelete} id='#delete-product-btn' text='massdelete' type="button" />
+        <Button handleClick={onMassDelete} id='#delete-product-btn' text='mass delete' type="button" />
       </Navbar>
       <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-3 px-3 gap-4'>
         {products?.map((product) => {

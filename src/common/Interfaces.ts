@@ -35,4 +35,6 @@ export interface InputFieldsProps {
 	name?: string;
 	placeholder?: string
 	left?: number
+	id?: string;
+	error?: string
 }
