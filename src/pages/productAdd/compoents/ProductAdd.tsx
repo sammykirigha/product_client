@@ -39,25 +39,28 @@ export default function ProductAdd() {
     const { sku, name, price, weight, width, height, length } = data
     try {
       axios.post("http://localhost/skuapi/index.php/products/create-product",
-      { sku, name, price, weight, width, height, length }, {
-      headers: {
-        'Content-Type': 'application/json'
+        { sku, name, price, weight, width, height, length }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
-    }
-    ).then(({ data }) => {
-      // console.log("response data", data);
-      if (data !== "") {
-        alert("Uncaught Exception: Duplicate entry '368768hbjhbdksjh' for key 'UC_products'");
-      } else {
-      navigate("/")
-      }
+      ).then(({ data }) => {
+        // console.log("response data", data);
+        if (data !== "") {
+          alert("Uncaught Exception: Duplicate entry '368768hbjhbdksjh' for key 'UC_products'");
+        } else {
+          navigate("/")
+        }
 
-    })
+      })
     } catch (error) {
       console.log("catchec error", error);
     }
-    
+
   };
+
+  console.log("errore",errors);
+  
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.currentTarget.value)
@@ -88,25 +91,24 @@ export default function ProductAdd() {
                 type="text"
                 className="ml-10 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
               />
+              <p className="bg-white pt-2 text-lg text-red-500 ml-10">{errors.sku?.message}</p>
             </div>
-            <p>{errors.sku?.message}</p>
           </div>
           <div className=" mt-5 flex items-center  flex-row gap-x-4">
             <label
               className="text-lg  font-medium after:content-['*'] after:ml-0.5 after:text-red-500"
             >
-              name
+              Name
             </label>
             <div className={`relative flex-1}`}>
               <input
                 {...register("name")}
-
                 id="name"
                 type="text"
                 className="ml-6 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
               />
+              <p className="bg-white pt-2 text-lg text-red-500 ml-6">{ errors.name?.message}</p>
             </div>
-            <p>{errors.name?.message}</p>
           </div>
           <div className=" mt-5 flex items-center  flex-row gap-x-4">
             <label
@@ -122,8 +124,8 @@ export default function ProductAdd() {
                 type="text"
                 className="ml-1 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
               />
+              <p className="bg-white pt-2 text-lg text-red-500 ml-1">{errors.price?.message}</p>
             </div>
-            <p>{errors.sku?.message}</p>
           </div>
         </div>
 
@@ -154,8 +156,8 @@ export default function ProductAdd() {
                     type='number'
                     className=" w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
                   />
+                <p className="bg-white pt-2 text-lg text-red-500 ml-1">{errors.weight?.message ? "weight is an interger and it is a required field": ""}</p>
                 </div>
-                <p>{errors.weight?.message}</p>
               </div>
               <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide weight in Kg</span>
             </div>
