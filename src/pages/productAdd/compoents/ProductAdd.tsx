@@ -29,7 +29,6 @@ export default function ProductAdd() {
     const response = await dispatch(createProduct(data))
     console.log("respose create", response.payload);
     if (response.payload !== "") {
-      // alert(`Uncaught Exception: Duplicate entry ${data.sku} for key UC_products`)
       setError(`You have duplicate entry key "${data.sku}" for field sku`)
       setTimeout(() => {
        setError("")
@@ -47,7 +46,7 @@ export default function ProductAdd() {
   }
 
   return (
-    <div className='custom-breakpoint-container'>
+    <div className=''>
       <form id='product_form' className='flex flex-col' onSubmit={handleSubmit(onSubmit)} >
         <div>
           <Navbar title='Product Add' >

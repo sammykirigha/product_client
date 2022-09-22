@@ -8,9 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store';
 import { fetchProductsData } from '../../../redux/actions';
-
-
-const baseUrl = 'http://localhost/skuapi/index.php'
+import { baseUrl } from '../../../constants';
 
 const ProductList = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -45,7 +43,7 @@ const ProductList = () => {
   console.log("my store data", products);
 
   return (
-    <div className='bg-gray-100 custom-breakpoint-container h-screen'>
+    <div className='bg-gray-100  h-screen'>
       <Navbar title='Product List' >
         <Button text='add' type="button" to='/add-product' />
         <Button handleClick={onMassDelete} id='#delete-product-btn' text='mass delete' type="button" />
