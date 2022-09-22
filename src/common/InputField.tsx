@@ -22,8 +22,6 @@ const InputField: React.FC<InputFieldsProps> = ({ label, type, name, placeholder
 					placeholder={placeholder}
                     className=" w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
                 />
-                {error && <p>please enter the value</p>}
-                
             </div>
         </div>
     );

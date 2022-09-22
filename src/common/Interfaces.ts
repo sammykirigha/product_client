@@ -14,10 +14,10 @@ export interface ButtonHTMLAttributes {
 	size?: number;
 	weight?: number;
 	dimension?: string
-	 checked?: boolean;
-	 height?: number;
-	 width?: number;
-	 length?:number
+	checked?: boolean;
+	height?: number;
+	width?: number;
+	length?:number
 }
 
 export interface ProductProps {

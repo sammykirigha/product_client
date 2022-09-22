@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import Navbar from "../../../common/Navbar";
 import Button from "../../../common/Button";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import { schema } from "../validation/ProductValidation";
 
 interface FormInput {
   sku: string;
@@ -18,54 +18,39 @@ interface FormInput {
   length: number;
 }
 
-const schema = yup.object({
-  sku: yup.string().required(),
-  name: yup.string().required(),
-  price: yup.string().required(),
-  size: yup.number().positive().integer(),
-  width: yup.number().positive().integer(),
-  weight: yup.number().positive().integer(),
-  height: yup.number().positive().integer(),
-  length: yup.number().positive().integer(),
-});
 
 export default function ProductAdd() {
   const [selectedValue, setSelectedValue] = useState("")
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormInput>({
     resolver: yupResolver(schema)
   });
-  const onSubmit = (data: FormInput) => {
+
+  const onSubmit = async (data: FormInput) => {
     const { sku, name, price, weight, width, height, length } = data
     try {
-      axios.post("http://localhost/skuapi/index.php/products/create-product",
+      await axios.post("http://localhost/skuapi/index.php/products/create-product",
         { sku, name, price, weight, width, height, length }, {
         headers: {
           'Content-Type': 'application/json'
         }
       }
       ).then(({ data }) => {
-        // console.log("response data", data);
         if (data !== "") {
           alert("Uncaught Exception: Duplicate entry '368768hbjhbdksjh' for key 'UC_products'");
         } else {
           navigate("/")
         }
-
       })
     } catch (error) {
       console.log("catchec error", error);
     }
-
   };
-
-  console.log("errore",errors);
-  
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.currentTarget.value)
   }
-
 
   return (
     <div className='custom-breakpoint-container'>

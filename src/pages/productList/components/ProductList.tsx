@@ -4,6 +4,10 @@ import { Product } from '../../../common/Interfaces'
 import Navbar from '../../../common/Navbar';
 import ProductCard from './ProductCard';
 import axios from 'axios';
+import { fetchProductsData } from '../../../reducers/getProductsSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../store';
 
 const productList = [
   {
@@ -40,8 +44,9 @@ const productList = [
 
 const baseUrl = 'http://localhost/skuapi/index.php'
 
-
 const ProductList = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const state = useSelector((state: RootState) => state.products);
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
 
@@ -66,13 +71,7 @@ const ProductList = () => {
     fetchProducts();
   }
 
-
-  // useEffect(() => {
-  //   setProducts(productList)
-  // }, [])
-
   const fetchProducts = async () => {
-
     await axios.get(`${baseUrl}/products/list`).then(({ data }) => {
       console.log(data);
       setProducts(data)
@@ -81,9 +80,10 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [])
+    dispatch(fetchProductsData()) 
+  }, [dispatch])
 
-  console.log(selectedProducts);
+  console.log("my store data", state.products);
 
   return (
     <div className='bg-gray-100 custom-breakpoint-container h-screen'>
