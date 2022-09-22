@@ -4,50 +4,17 @@ import { Product } from '../../../common/Interfaces'
 import Navbar from '../../../common/Navbar';
 import ProductCard from './ProductCard';
 import axios from 'axios';
-import { fetchProductsData } from '../../../reducers/getProductsSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store';
+import { fetchProductsData } from '../../../redux/actions';
 
-const productList = [
-  {
-    SKU: "2jkoiunb43059-89",
-    name: "Clean Code",
-    price: 300,
-    weight: "2 Kg"
-  },
-  {
-    SKU: "2jkoiu98trt59-89",
-    name: "Desk",
-    price: 300,
-    dimension: "24x45x15"
-  },
-  {
-    SKU: "2jkoihjkbrhgoirt59-89",
-    name: "DVDCV",
-    price: 300,
-    size: "300 MB"
-  },
-  {
-    SKU: "2jko3u943y7fh8trt59-89",
-    name: "Desk",
-    price: 300,
-    dimension: "24x45x15"
-  },
-  {
-    SKU: "2jko00409r34fj59-89",
-    name: "ReactJs",
-    price: 300,
-    weight: "3 Kg"
-  }
-]
 
 const baseUrl = 'http://localhost/skuapi/index.php'
 
 const ProductList = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const state = useSelector((state: RootState) => state.products);
-  const [products, setProducts] = useState<Product[]>([])
+  const {products} = useSelector((state: RootState) => state.products);
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, sku: string) => {
@@ -66,24 +33,16 @@ const ProductList = () => {
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then(() => fetchProducts())
+      }).then(() => dispatch(fetchProductsData()))
     }))
-    fetchProducts();
-  }
-
-  const fetchProducts = async () => {
-    await axios.get(`${baseUrl}/products/list`).then(({ data }) => {
-      console.log(data);
-      setProducts(data)
-    });
+    dispatch(fetchProductsData());
   }
 
   useEffect(() => {
-    fetchProducts();
     dispatch(fetchProductsData()) 
   }, [dispatch])
 
-  console.log("my store data", state.products);
+  console.log("my store data", products);
 
   return (
     <div className='bg-gray-100 custom-breakpoint-container h-screen'>

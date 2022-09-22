@@ -1,52 +1,46 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from "react-redux";
+
 import Navbar from "../../../common/Navbar";
 import Button from "../../../common/Button";
-import axios from "axios";
-import { useNavigate } from 'react-router-dom'
 import { schema } from "../validation/ProductValidation";
-
-interface FormInput {
-  sku: string;
-  name: string;
-  price: string;
-  size: number;
-  width: number;
-  weight: number;
-  height: number;
-  length: number;
-}
-
+import { AppDispatch, RootState } from "../../../store";
+import { IFormInput } from "../../../common/Interfaces";
+import { createProduct } from "../../../redux/actions";
+import { useSelector } from "react-redux";
 
 export default function ProductAdd() {
-  const [selectedValue, setSelectedValue] = useState("")
+
+  const dispatch = useDispatch<AppDispatch>()
+  const {message} = useSelector((state: RootState) => state.products);
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInput>({
+  const [selectedValue, setSelectedValue] = useState("")
+  const [error, setError]= useState("")
+
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data: FormInput) => {
-    const { sku, name, price, weight, width, height, length } = data
-    try {
-      await axios.post("http://localhost/skuapi/index.php/products/create-product",
-        { sku, name, price, weight, width, height, length }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-      ).then(({ data }) => {
-        if (data !== "") {
-          alert("Uncaught Exception: Duplicate entry '368768hbjhbdksjh' for key 'UC_products'");
-        } else {
-          navigate("/")
-        }
-      })
-    } catch (error) {
-      console.log("catchec error", error);
+  const onSubmit = async (data: IFormInput) => {
+    const response = await dispatch(createProduct(data))
+    console.log("respose create", response.payload);
+    if (response.payload !== "") {
+      // alert(`Uncaught Exception: Duplicate entry ${data.sku} for key UC_products`)
+      setError(`You have duplicate entry key "${data.sku}" for field sku`)
+      setTimeout(() => {
+       setError("")
+      }, 3000)
+    } else {
+      navigate("/")
     }
   };
+
+  console.log("my message", message)
+  
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.currentTarget.value)
@@ -62,6 +56,9 @@ export default function ProductAdd() {
           </Navbar>
         </div>
         <div>
+         {error &&  <div className="bg-red-300 w-fit flex mt-3 justify-center">
+            <p className="py-2 px-5 text-lg font-[500]">{ error}</p>
+          </div>}
           <div className=" mt-5 flex items-center  flex-row gap-x-4">
             <label
               className="text-lg  font-medium after:content-['*'] after:ml-0.5 after:text-red-500"

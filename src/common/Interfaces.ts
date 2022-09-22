@@ -7,6 +7,8 @@ export interface ButtonHTMLAttributes {
 	handleClick?: () => void;
 }
 
+
+
  export interface Product{
 	sku: string;
 	name: string;
@@ -37,4 +39,31 @@ export interface InputFieldsProps {
 	left?: number
 	id?: string;
 	error?: string
+}
+
+export interface IFormInput {
+  sku: string;
+  name: string;
+  price: number;
+  size: number;
+  width: number;
+  weight: number;
+  height: number;
+  length: number;
+}
+
+export interface ProductState {
+    sku: string;
+    name: string;
+    price: number;
+    size?: number;
+    weight?: number;
+    height?: number;
+    width?: number;
+    length?: number;
+}
+
+export interface IState {
+    products: ProductState[];
+    message: string
 }
