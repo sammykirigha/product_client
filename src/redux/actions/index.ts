@@ -21,8 +21,6 @@ export const createProduct= createAsyncThunk(
     async (data:ProductState, { rejectWithValue }) => {
         try {
             const response = await axios.post(`${baseUrl}/products/create-product`, data)
-            console.log(response);
-            
             return response.status
         } catch (error) {
             return rejectWithValue(error);
