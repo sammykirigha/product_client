@@ -17,7 +17,7 @@ const getProductsData = createSlice({
             state.products = action.payload;
         });
         builder.addCase(createProduct.fulfilled, (state, action) => {
-            state.message = action.payload
+            state.message = "Added"
         })
     },
     

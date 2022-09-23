@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.slim-scrollbar::-webkit-scrollbar {
+    width: 5px !important;
+}
+
 
 @layer components {
      .btn {

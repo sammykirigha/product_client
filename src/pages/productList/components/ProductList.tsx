@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Button from '../../../common/Button'
-import { Product } from '../../../common/Interfaces'
 import Navbar from '../../../common/Navbar';
 import ProductCard from './ProductCard';
 import axios from 'axios';
@@ -10,7 +9,7 @@ import { AppDispatch, RootState } from '../../../store';
 import { fetchProductsData } from '../../../redux/actions';
 import { baseUrl } from '../../../constants';
 
-const ProductList = () => {
+const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const {products} = useSelector((state: RootState) => state.products);
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
@@ -40,20 +39,21 @@ const ProductList = () => {
     dispatch(fetchProductsData()) 
   }, [dispatch])
 
-  console.log("my store data", products);
-
   return (
-    <div className='bg-gray-100  h-screen'>
+    <div className=''>
       <Navbar title='Product List' >
         <Button text='add' type="button" to='/add-product' />
         <Button handleClick={onMassDelete} id='#delete-product-btn' text='mass delete' type="button" />
       </Navbar>
-      <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-3 px-3 gap-4'>
+      <div className="h-screen">
+        
+      <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-3 px-3 py-3 gap-3  overflow-auto slim-scrollbar'>
         {products?.map((product) => {
           return (
             <ProductCard product={product} key={product.sku} handleChange={handleChange} id={product.sku} />
           )
         })}
+</div>
       </div>
     </div>
   )

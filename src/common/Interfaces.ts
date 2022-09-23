@@ -1,4 +1,3 @@
-
 export interface ButtonHTMLAttributes {
 	text: string;
 	to?: string;
@@ -6,10 +5,7 @@ export interface ButtonHTMLAttributes {
 	type: "button" | "submit" | "reset" | undefined;
 	handleClick?: () => void;
 }
-
-
-
- export interface Product{
+export interface Product{
 	sku: string;
 	name: string;
 	price: number;
@@ -20,13 +16,6 @@ export interface ButtonHTMLAttributes {
 	height?: number;
 	width?: number;
 	length?:number
-}
-
-export interface ProductProps {
-	product: Product;
-	id?: string;
-	handleChange: (event: React.ChangeEvent<HTMLInputElement>, sku:string) => void;
-	isChecked?: boolean;
 }
 
 export interface InputFieldsProps {

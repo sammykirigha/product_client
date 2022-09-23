@@ -27,9 +27,8 @@ export default function ProductAdd() {
 
   const onSubmit = async (data: IFormInput) => {
     const response = await dispatch(createProduct(data))
-    console.log("respose create", response.payload);
-    if (response.payload !== "") {
-      setError(`You have duplicate entry key "${data.sku}" for field sku`)
+    if (response.payload !== 200) {
+      setError(`An error occured...., try different sku`)
       setTimeout(() => {
        setError("")
       }, 3000)
@@ -37,8 +36,6 @@ export default function ProductAdd() {
       navigate("/")
     }
   };
-
-  console.log("my message", message)
   
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -46,7 +43,7 @@ export default function ProductAdd() {
   }
 
   return (
-    <div className=''>
+    <div className='h-screen'>
       <form id='product_form' className='flex flex-col' onSubmit={handleSubmit(onSubmit)} >
         <div>
           <Navbar title='Product Add' >
@@ -103,7 +100,7 @@ export default function ProductAdd() {
 
                 id="price"
                 type="text"
-                className="ml-1 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
+                className="ml-2 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
               />
               <p className="bg-white pt-2 text-lg text-red-500 ml-1">{errors.price?.message}</p>
             </div>
@@ -140,7 +137,7 @@ export default function ProductAdd() {
                 <p className="bg-white pt-2 text-lg text-red-500 ml-1">{errors.weight?.message ? "weight is an interger and it is a required field": ""}</p>
                 </div>
               </div>
-              <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide weight in Kg</span>
+              <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide weight in Kg.</span>
             </div>
 
           ) : selectedValue === "Furniture" ? (
@@ -174,7 +171,7 @@ export default function ProductAdd() {
 
                     id='width'
                     type='number'
-                    className=" w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
+                    className="ml-2 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
                   />
                 </div>
                 <p>{errors.width?.message}</p>
@@ -191,12 +188,12 @@ export default function ProductAdd() {
 
                     id='length'
                     type='number'
-                    className=" w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
+                    className="ml-1 w-[300px] h-[40px] rounded-md  placeholder:italic outline outline-gray-200 placeholder:text-slate-300 placeholder:pl-1 focus:border-blue-500 focus:ring-blue-500 "
                   />
                 </div>
                 <p>{errors.length?.message}</p>
               </div>
-              <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide dimension in HxWxL </span>
+              <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide dimension in HxWxL. </span>
             </div>
 
           ) : selectedValue === "DVD" ? (
@@ -218,7 +215,7 @@ export default function ProductAdd() {
                 </div>
                 <p>{errors.size?.message}</p>
               </div>
-              <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide disc space in MB</span>
+              <span className='text-slate-900 font-bold text-lg mt-5'>Please, provide disc space in MB.</span>
             </div>
           ) : null}
         </div>
