@@ -45,9 +45,9 @@ const ProductList: React.FC = () => {
         <Button text='add' type="button" to='/add-product' />
         <Button handleClick={onMassDelete} id='#delete-product-btn' text='mass delete' type="button" />
       </Navbar>
-      <div className="h-screen">
+      <div className="h-screen  overflow-auto slim-scrollbar">
         
-      <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-3 px-3 py-3 gap-3  overflow-auto slim-scrollbar'>
+      <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-3 px-3 py-3 gap-3  '>
         {products?.map((product) => {
           return (
             <ProductCard product={product} key={product.sku} handleChange={handleChange} id={product.sku} />

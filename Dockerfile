@@ -3,11 +3,16 @@
 FROM node:16-alpine 
 # Set the working directory to /app inside the container
 WORKDIR /app
-# Copy app files
-COPY . .
-# ==== BUILD =====
+
+# Copy packages
+COPY package*.json .
+
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm install 
+
+# Copy app files
+COPY . .
+
 # Build the app
 RUN npm run build
 # ==== RUN =======
