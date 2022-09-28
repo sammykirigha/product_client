@@ -2,7 +2,7 @@ export interface ButtonHTMLAttributes {
 	text: string;
 	to?: string;
 	id?: string;
-	type: "button" | "submit" | "reset" | undefined;
+	type?: "button" | "submit" | "reset" | undefined;
 	handleClick?: () => void;
 }
 export interface Product{
